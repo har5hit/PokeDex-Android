@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.justadeveloper96.pokedex.android"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    dataBinding{
+        enabled true
+    }
+}
+
+dependencies {
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    implementation deps.constraint_layout
+
+    implementation deps.hilt.runtime
+    kapt deps.hilt.compiler
+
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+    implementation deps.room.ktx
+
+    implementation project(":feature_pokemon_list")
+}

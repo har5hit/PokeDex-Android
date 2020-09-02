@@ -1,0 +1,4 @@
+include ':feature_pokemon_list'
+include ':helpers'
+include ':app'
+rootProject.name = "PokeDex-Android"

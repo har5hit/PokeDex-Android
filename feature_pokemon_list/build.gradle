@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    dataBinding{
+        enabled true
+    }
+}
+
+dependencies {
+    implementation deps.constraint_layout
+    implementation deps.lifecycle.viewmodel_ktx
+
+
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    testImplementation deps.kotlin.coroutine_android_test
+
+    testImplementation deps.mockito.core
+    testImplementation deps.mockito.android
+
+
+    testImplementation 'io.kotest:kotest-runner-junit5:4.2.3'
+    testImplementation 'io.kotest:kotest-assertions-core:4.2.3'
+    testImplementation 'io.kotest:kotest-property:4.2.3'
+
+
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+    implementation deps.room.ktx
+
+    api deps.retrofit.runtime
+    api deps.retrofit.gson
+
+    api deps.dagger.runtime
+    kapt deps.dagger.compiler
+
+    api deps.hilt.runtime
+    kapt deps.hilt.compiler
+
+
+    api project(":helpers")
+
+
+}

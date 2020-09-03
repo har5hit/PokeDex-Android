@@ -154,6 +154,7 @@ deps.atsl = atsl
 def mockito = [:]
 mockito.core = "org.mockito:mockito-core:$versions.mockito"
 mockito.android = "org.mockito:mockito-android:$versions.mockito"
+mockito.inline = "org.mockito:mockito-inline:2.8.47"
 deps.mockito = mockito
 
 def kotlin = [:]
@@ -250,6 +251,7 @@ deps.delegate_adapter=delegate_adapter
 def kotest = [:]
 kotest.runner = "io.kotest:kotest-runner-junit5:${versions.kotest}"
 kotest.core =  "io.kotest:kotest-assertions-core-jvm:${versions.kotest}"
+kotest.property =  "io.kotest:kotest-property:${versions.kotest}"
 deps.kotest = kotest
 
 def android = [:]

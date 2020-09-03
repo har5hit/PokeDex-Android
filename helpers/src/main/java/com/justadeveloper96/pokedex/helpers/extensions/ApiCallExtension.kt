@@ -24,6 +24,6 @@ inline fun <T> execute(serviceCall: () -> T): NetworkResult<T> {
     return try {
         Success(serviceCall())
     } catch (e: Exception) {
-        return Error(e.message)
+         Error(message = e.message)
     }
 }

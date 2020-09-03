@@ -16,4 +16,4 @@
 
 package com.justadeveloper96.pokedex.helpers.pagination
 
-data class PaginatedList<T>(val data: T, val total: Int = 0)
+data class PaginatedList<T>(val data: List<T>, val total: Int = 0)

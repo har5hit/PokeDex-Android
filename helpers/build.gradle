@@ -36,11 +36,6 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
-    }
 }
 
 dependencies {
@@ -57,7 +52,5 @@ dependencies {
 
     api deps.javax_annotation
     api deps.javax_inject
-
-
 
 }

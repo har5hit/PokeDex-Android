@@ -16,7 +16,7 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network
 
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model.PokemonResponseModel
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
 import com.justadeveloper96.pokedex.helpers.api.NetworkResult
 import com.justadeveloper96.pokedex.helpers.extensions.execute
 import retrofit2.Retrofit
@@ -28,7 +28,7 @@ class PokemonApi @Inject constructor(private val retrofit: Retrofit) : IPokemonA
     val service = retrofit.create(IRetrofitService::class.java)
 
 
-    override suspend fun get(): NetworkResult<PokemonResponseModel> {
+    override suspend fun get(): NetworkResult<PokemonListResponseModel> {
         return execute { service.get() }
     }
 
@@ -39,7 +39,7 @@ class PokemonApi @Inject constructor(private val retrofit: Retrofit) : IPokemonA
         }
 
         @GET(ENDPOINT)
-        suspend fun get(): PokemonResponseModel
+        suspend fun get(): PokemonListResponseModel
 
     }
 }

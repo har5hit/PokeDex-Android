@@ -16,19 +16,24 @@
 
 package com.justadeveloper96.pokedex.helpers.api
 
-sealed class NetworkResult<T> {
-    fun <E> modify(map: (T) -> E): NetworkResult<E> {
-        when (this) {
+sealed class NetworkResult<T>(open val data: T?) {
+    fun <E> modify(data: E): NetworkResult<E> {
+        return when (this) {
             is Success -> {
-                return Success(map(this.data))
+                Success(data)
+            }
+            is Loading -> {
+                Loading(data)
             }
             is Error -> {
-                return Error(this.message)
+                Error(data)
             }
         }
     }
 }
 
-data class Success<T>(val data: T) : NetworkResult<T>()
+data class Success<T>(override val data: T) : NetworkResult<T>(data)
+data class Error<T>(override val data: T? = null, val message: String? = null) :
+    NetworkResult<T>(data)
 
-data class Error<T>(val message: String? = null) : NetworkResult<T>()
+data class Loading<T>(override val data: T? = null) : NetworkResult<T>(data)

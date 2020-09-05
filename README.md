@@ -1,9 +1,14 @@
 # Pokedex Android
-A Demo Application for demonstrating Test Driven Development in MVVM design pattern, Multi Module Android Setup, Code generation of boilerplate code using [Hygen](https://www.hygen.io/), CI-CD using Github Actions.
-Dependency Injection using [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-Testing implemented via [kotest](https://github.com/kotest/kotest) and [Mockk](https://mockk.io/)
-Threading using Kotlin Coroutines.
-Replace LiveData with Kotlin Flow.
+A Demo Application for implementing below items in an Android application,
+* 100% Kotlin
+* Test Driven Development in MVVM design pattern
+* Multi Module Android Application Setup
+* Code generation of boilerplate using [Hygen](https://www.hygen.io/).
+* CI-CD using [Github Actions](https://github.com/features/actions).
+* Dependency Injection using [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+* Unit Testing via [kotest](https://github.com/kotest/kotest) and [Mockk](https://mockk.io/)
+* Threading using [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines).
+* Replacing LiveData with [Kotlin Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/).
 
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -20,6 +25,8 @@ Replace LiveData with Kotlin Flow.
 ![Overview](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
 
 # Application Structure
+
+Each individual feature folder structure
 
 * **/data** (All data related files)
   * /entity_1 (for e.g: Person)
@@ -59,11 +66,9 @@ hygen repository new
 
 * [Android CI](https://github.com/har5hit/PokeDex-Android/blob/master/.github/workflows/android_ci.yml) - to verify every code push to/pull request on master branch is validated, error free and releases can be properly built.
 
-![Workflow Complete](https://github.com/har5hit/PokeDex-Android/blob/master/previews/workflow_check.png?raw=true)
 
 * [Android Artifact](https://github.com/har5hit/PokeDex-Android/blob/master/.github/workflows/android_artifact.yml) - Archives and hosts apk build on each tag push for sharing.
 
-![Workflow Artifact](https://github.com/har5hit/PokeDex-Android/blob/master/previews/workflow_artifact.png?raw=true)
 
 # Resources
 

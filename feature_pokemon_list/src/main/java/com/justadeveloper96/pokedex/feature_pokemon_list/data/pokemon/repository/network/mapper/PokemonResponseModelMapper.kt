@@ -19,7 +19,7 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repositor
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model.PokemonResponseModel
 
-fun PokemonResponseModel.toPokemon(): Pokemon {
+fun PokemonResponseModel.toDomainModel(): Pokemon {
     return Pokemon(
         id
     )

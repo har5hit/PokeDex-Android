@@ -12,7 +12,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
 
 
 class PokemonRepositoryTest : StringSpec({
@@ -24,29 +23,27 @@ class PokemonRepositoryTest : StringSpec({
 
     "first load local data and then update with network data" {
 
-        runBlocking {
-            val localData = List(10) { i -> Pokemon(i) }
-            dao.insert(localData)
+        val localData = List(10) { i -> Pokemon(i) }
+        dao.insert(localData)
 
-            val networkData = List(10) { i -> Pokemon(i * 2) }
-            coEvery { api.get(0, 10) } returns Success(PaginatedList(networkData, 20))
+        val networkData = List(10) { i -> Pokemon(i * 2) }
+        coEvery { api.get(0, 10) } returns Success(PaginatedList(networkData, 20))
 
-            val states = repository.get(0, 10).take(2).toList(mutableListOf())
+        val states = repository.get(0, 10).take(2).toList(mutableListOf())
 
-            states shouldBe listOf(
-                Loading(
-                    PaginatedList(
-                        localData,
-                        localData.size
-                    )
-                ),
-                Success(
-                    PaginatedList(
-                        networkData,
-                        20
-                    )
+        states shouldBe listOf(
+            Loading(
+                PaginatedList(
+                    localData,
+                    localData.size
+                )
+            ),
+            Success(
+                PaginatedList(
+                    networkData,
+                    20
                 )
             )
-        }
+        )
     }
 })

@@ -6,9 +6,9 @@ name_snake = h.changeCase.snake(name)
 %>
 package com.justadeveloper96.pokedex.<%= module %>.data.<%=name_snake %>.repository.network
 
-import com.justadeveloper96.pokedex.<%= module %>.data.<%=name_snake %>.repository.network.model.<%=name %>ResponseModel
+import com.justadeveloper96.pokedex.<%= module %>.data.<%=name_snake %>.repository.model.<%=name %>
 import com.justadeveloper96.pokedex.helpers.api.NetworkResult
 
 interface I<%=name %>Api {
-    suspend fun get():NetworkResult<<%=name %>ResponseModel>
+    suspend fun get():NetworkResult<<%=name %>>
 }

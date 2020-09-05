@@ -9,8 +9,15 @@ package com.justadeveloper96.pokedex.<%= module %>.data.<%=name_snake %>.reposit
 import com.justadeveloper96.pokedex.<%= module %>.data.<%=name_snake %>.repository.dao.model.<%=name %>DaoModel
 import com.justadeveloper96.pokedex.<%= module %>.data.<%=name_snake %>.repository.model.<%=name %>
 
-fun <%=name %>DaoModel.to<%=name %>():<%=name %> {
+fun <%=name %>DaoModel.toDomainModel():<%=name %> {
     return <%=name %>(
+        id
+    )
+}
+
+
+fun <%=name %>.toDaoModel(): <%=name %>DaoModel {
+    return <%=name %>DaoModel(
         id
     )
 }

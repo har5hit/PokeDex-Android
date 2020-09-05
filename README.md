@@ -1,6 +1,6 @@
 # Pokedex Android
 A Demo Application for implementing below items in an Android application,
-* 100% Kotlin
+* 100% [Kotlin](https://kotlinlang.org/)
 * Test Driven Development in MVVM design pattern
 * Multi Module Android Application Setup
 * Code generation of boilerplate using [Hygen](https://www.hygen.io/).

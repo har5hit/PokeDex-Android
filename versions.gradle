@@ -88,6 +88,7 @@ support.multidex = "androidx.multidex:multidex:$versions.multidex"
 support.dynamic_animation = 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 support.mediax = "androidx.media:media:$versions.mediax"
 support.preferences = 'androidx.preference:preference:1.1.1'
+support.palette = 'com.android.support:palette-v7:28.0.0'
 deps.support = support
 
 def room = [:]

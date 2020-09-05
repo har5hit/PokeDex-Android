@@ -89,6 +89,7 @@ dependencies {
     implementation deps.delegate_adapter.view_binding
 
     implementation deps.swipe_refresh
+    implementation deps.support.palette
     api project(":helpers")
 
 

@@ -38,12 +38,14 @@ class PokemonListViewModel @ViewModelInject constructor(
         repository.get(offset, limit).collect {
             when (it) {
                 is Loading -> {
-                    state.value = UIState(loading = true, list = it.data?.data ?: listOf())
+                    state.value = UIState(
+                        loading = true,
+                        list = it.data?.data?.map { it.toPokemonUiModel() } ?: listOf())
                 }
                 is Success -> {
                     loading = false
                     offset = it.data.data.size
-                    state.value = UIState(list = it.data.data)
+                    state.value = UIState(list = it.data.data.map { it.toPokemonUiModel() })
                     moreAvailable = it.data.moreAvailable
                 }
                 is Error -> {

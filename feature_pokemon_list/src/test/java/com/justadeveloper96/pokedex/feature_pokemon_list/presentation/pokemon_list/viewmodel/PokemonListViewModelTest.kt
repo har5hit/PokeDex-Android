@@ -34,11 +34,13 @@ class PokemonListViewModelTest : StringSpec({
 
         viewModel.fetch()
 
-        viewModel.state.first() shouldBe UIState(loading = true, list = data.data)
+        viewModel.state.first() shouldBe UIState(
+            loading = true,
+            list = data.data.map { it.toPokemonUiModel() })
 
         dataChannel.offer(Success(data))
 
-        viewModel.state.first() shouldBe UIState(list = data.data)
+        viewModel.state.first() shouldBe UIState(list = data.data.map { it.toPokemonUiModel() })
     }
 
     "paginate for new items"{
@@ -58,11 +60,11 @@ class PokemonListViewModelTest : StringSpec({
 
         viewModel.fetch()
 
-        viewModel.state.first() shouldBe UIState(list = data1.data)
+        viewModel.state.first() shouldBe UIState(list = data1.data.map { it.toPokemonUiModel() })
 
         viewModel.fetch()
 
-        viewModel.state.first() shouldBe UIState(list = data2.data)
+        viewModel.state.first() shouldBe UIState(list = data2.data.map { it.toPokemonUiModel() })
 
         viewModel.fetch()
 

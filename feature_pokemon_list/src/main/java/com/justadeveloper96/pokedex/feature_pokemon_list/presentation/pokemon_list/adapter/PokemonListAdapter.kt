@@ -16,16 +16,24 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.adapter
 
-import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import com.justadeveloper96.pokedex.feature_pokemon_list.databinding.ItemPokemonBinding
+import androidx.recyclerview.widget.DiffUtil
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonUiModel
 
-fun pokemonListItemDelegate() =
-    adapterDelegateViewBinding<PokemonUiModel, PokemonUiModel, ItemPokemonBinding>(
-        { layoutInflater, root -> ItemPokemonBinding.inflate(layoutInflater, root, false) }
-    ) {
-
-        bind {
-            binding.data = item
-        }
+val diffUtil = object : DiffUtil.ItemCallback<PokemonUiModel>() {
+    override fun areItemsTheSame(oldItem: PokemonUiModel, newItem: PokemonUiModel): Boolean {
+        return oldItem == newItem
     }
+
+    override fun areContentsTheSame(oldItem: PokemonUiModel, newItem: PokemonUiModel): Boolean {
+        return oldItem == newItem
+    }
+
+}
+
+class PokemonListAdapter : AsyncListDifferDelegationAdapter<PokemonUiModel>(
+    diffUtil,
+    AdapterDelegatesManager<List<PokemonUiModel>>().apply {
+        addDelegate(pokemonListItemDelegate())
+    })

@@ -25,7 +25,7 @@
 
         <variable
             name="data"
-            type="com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon" />
+            type="com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonUiModel" />
     </data>
 
     <androidx.cardview.widget.CardView

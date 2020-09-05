@@ -7,13 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DiffUtil
-import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
-import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.justadeveloper96.pokedex.feature_pokemon_list.R
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex.feature_pokemon_list.databinding.FragmentPokemonListBinding
-import com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.adapter.pokemonListItemDelegate
+import com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.adapter.PokemonListAdapter
 import com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.viewmodel.Message
 import com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonListViewModel
 import com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.viewmodel.UIEvent
@@ -51,19 +47,8 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding>(), IView<UI
     override val layout: Int
         get() = R.layout.fragment_pokemon_list
 
-    private val adapter = AsyncListDifferDelegationAdapter<Pokemon>(object :
-        DiffUtil.ItemCallback<Pokemon>() {
-        override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
-            return oldItem == newItem
-        }
 
-        override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
-            return oldItem == newItem
-        }
-
-    }, AdapterDelegatesManager<List<Pokemon>>().apply {
-        addDelegate(pokemonListItemDelegate())
-    })
+    val adapter = PokemonListAdapter()
 
     private fun setupView() {
         binding.recyclerView.adapter = adapter

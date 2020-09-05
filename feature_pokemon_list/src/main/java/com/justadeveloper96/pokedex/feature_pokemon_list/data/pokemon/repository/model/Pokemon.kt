@@ -16,4 +16,4 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model
 
-data class Pokemon(val id: Int)
+data class Pokemon(val name: String, val url: String)

@@ -23,5 +23,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class PokemonDaoModel(
     @PrimaryKey
-    val id: Int
+    val name: String,
+    val url: String
 )

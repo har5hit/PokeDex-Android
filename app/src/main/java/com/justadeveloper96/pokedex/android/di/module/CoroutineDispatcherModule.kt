@@ -14,10 +14,22 @@
  * limitations under the License.
  */
 
-package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model
+package com.justadeveloper96.pokedex.android.di.module
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
-data class PokemonResponseModel(
-    val name: String,
-    val url: String
-)
+@Module
+@InstallIn(ApplicationComponent::class)
+object CoroutineDispatcherModule {
+
+    @Provides
+    fun provideDefaultDispatcher(): CoroutineDispatcher {
+        return Dispatchers.IO
+    }
+
+}

@@ -138,6 +138,8 @@ def hilt = [:]
 hilt.plugin = "com.google.dagger:hilt-android-gradle-plugin:2.28-alpha"
 hilt.runtime = "com.google.dagger:hilt-android:2.28-alpha"
 hilt.compiler = "com.google.dagger:hilt-android-compiler:2.28-alpha"
+hilt.viewmodel = 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+hilt.viewmodel_compiler = 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
 deps.hilt = hilt
 
 def espresso = [:]
@@ -265,8 +267,8 @@ deps.junit4 = "junit:junit:$versions.junit"
 deps.mock_web_server = "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
 deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
 deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
-deps.chucker = "com.github.ChuckerTeam.Chucker:library:$versions.chucker"
-deps.chucker_no_op = "com.github.ChuckerTeam.Chucker:library-no-op:$versions.chucker"
+deps.chucker = "com.github.chuckerteam.chucker:library:$versions.chucker"
+deps.chucker_no_op = "com.github.chuckerteam.chucker:library-no-op:$versions.chucker"
 deps.photo_view = "com.github.chrisbanes:PhotoView:$versions.photo_view"
 deps.permissions = "com.justadeveloper96.android:permissionhelper:$versions.permissions"
 deps.event_bus = "org.greenrobot:eventbus:$versions.event_bus"
@@ -289,6 +291,7 @@ deps.vector_master = "com.github.tarek360.RichPath:animator:0.1.1"
 deps.kluent = "org.amshove.kluent:kluent-android:$versions.kluent"
 deps.vox_video_sdk = "vox-cpaas:connectsdk:$versions.vox_video_sdk"
 deps.chuck = 'com.readystatesoftware.chuck:library:1.1.0'
+deps.swipe_refresh = 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
 
 deps.javax_inject = 'javax.inject:javax.inject:1'

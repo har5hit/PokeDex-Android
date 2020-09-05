@@ -34,7 +34,7 @@ class PokemonApi @Inject constructor(private val retrofit: Retrofit) : IPokemonA
 
     override suspend fun get(offset: Int, limit: Int): NetworkResult<PaginatedList<Pokemon>> {
         return execute({ service.get(offset, limit) },
-            { i -> PaginatedList(i.data.map { it.toDomainModel() }, i.total) })
+            { i -> PaginatedList(i.results.map { it.toDomainModel() }, i.count) })
     }
 
     interface IRetrofitService {

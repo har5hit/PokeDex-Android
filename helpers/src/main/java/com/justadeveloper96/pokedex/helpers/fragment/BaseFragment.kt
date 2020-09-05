@@ -27,7 +27,7 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     private var _binding: T? = null
 
-    private val binding get() = _binding!!
+    protected val binding get() = _binding!!
 
     abstract val layout: Int
 

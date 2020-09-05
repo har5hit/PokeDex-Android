@@ -1,15 +1,20 @@
 package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
 import com.justadeveloper96.pokedex.helpers.api.Loading
 import com.justadeveloper96.pokedex.helpers.api.Success
 import com.justadeveloper96.pokedex.helpers.viewmodel.BaseViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class PokemonListViewModel @Inject constructor(private val repository: IPokemonRepository) :
+
+class PokemonListViewModel @ViewModelInject constructor(
+    private val coroutineDispatcher: CoroutineDispatcher,
+    private val repository: IPokemonRepository
+) :
     BaseViewModel<UIState, UIEvent>(), IPokemonListViewModel {
     override val initialState
         get() = UIState(true, listOf())
@@ -17,22 +22,33 @@ class PokemonListViewModel @Inject constructor(private val repository: IPokemonR
     private val limit = 10
     private var offset = 0
 
-    private var moreAvailable = false
+    private var loading = false
+    private var moreAvailable = true
 
     override fun fetch() {
-        viewModelScope.launch {
-            repository.get(offset, limit).collect {
-                when (it) {
-                    is Loading -> {
-                        state.value = UIState(loading = true, list = it.data?.data ?: listOf())
-                        it.data?.let {
-                            moreAvailable = it.moreAvailable
-                        }
-                    }
-                    is Success -> {
-                        state.value = UIState(list = it.data.data)
-                        moreAvailable = it.data.moreAvailable
-                    }
+        viewModelScope.launch(coroutineDispatcher) {
+            if (moreAvailable && !loading) {
+                loading = true
+                fetchNewItems()
+            }
+        }
+    }
+
+    private suspend fun fetchNewItems() {
+        repository.get(offset, limit).collect {
+            when (it) {
+                is Loading -> {
+                    state.value = UIState(loading = true, list = it.data?.data ?: listOf())
+                }
+                is Success -> {
+                    loading = false
+                    offset = it.data.data.size
+                    state.value = UIState(list = it.data.data)
+                    moreAvailable = it.data.moreAvailable
+                }
+                is Error -> {
+                    loading = false
+                    event.value = Message("Error!")
                 }
             }
         }

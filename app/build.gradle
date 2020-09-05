@@ -50,5 +50,8 @@ dependencies {
     kapt deps.room.compiler
     implementation deps.room.ktx
 
+    debugImplementation deps.chucker
+    releaseImplementation deps.chucker_no_op
+
     implementation project(":feature_pokemon_list")
 }

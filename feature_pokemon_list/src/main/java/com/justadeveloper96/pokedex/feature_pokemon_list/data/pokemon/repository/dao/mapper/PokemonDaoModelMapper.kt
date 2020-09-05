@@ -21,12 +21,12 @@ import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
 
 fun PokemonDaoModel.toDomainModel(): Pokemon {
     return Pokemon(
-        id
+        name, url
     )
 }
 
 fun Pokemon.toDaoModel(): PokemonDaoModel {
     return PokemonDaoModel(
-        id
+        name, url
     )
 }

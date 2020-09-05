@@ -16,10 +16,15 @@
 
 package com.justadeveloper96.pokedex.android.di.module
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.justadeveloper96.pokedex.android.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -30,10 +35,20 @@ object NetworkClientModule {
     val HOST_URL = "https://pokeapi.co"
 
     @Provides
-    fun getRetrofit(): Retrofit {
+    fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(HOST_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
             .build()
+    }
+
+    @Provides
+    fun httpClient(@ApplicationContext context: Context): OkHttpClient {
+        val builder = OkHttpClient.Builder()
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(ChuckerInterceptor(context = context))
+        }
+        return builder.build()
     }
 }

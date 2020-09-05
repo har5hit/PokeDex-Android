@@ -23,10 +23,10 @@ class PokemonRepositoryTest : StringSpec({
 
     "first load local data and then update with network data" {
 
-        val localData = List(10) { i -> Pokemon(i) }
+        val localData = List(10) { i -> Pokemon(i.toString(), i.toString()) }
         dao.insert(localData)
 
-        val networkData = List(10) { i -> Pokemon(i * 2) }
+        val networkData = List(10) { i -> Pokemon((i * 2).toString(), (i * 2).toString()) }
         coEvery { api.get(0, 10) } returns Success(PaginatedList(networkData, 20))
 
         val states = repository.get(0, 10).take(2).toList(mutableListOf())

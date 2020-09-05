@@ -18,6 +18,6 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repositor
 
 
 data class PokemonListResponseModel(
-    val total: Int,
-    val data: List<PokemonResponseModel>
+    val count: Int,
+    val results: List<PokemonResponseModel>
 )

@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model
+package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.adapter
 
+import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
+import com.justadeveloper96.pokedex.feature_pokemon_list.databinding.ItemPokemonBinding
 
-data class PokemonResponseModel(
-    val name: String,
-    val url: String
-)
+fun pokemonListItemDelegate() = adapterDelegateViewBinding<Pokemon, Pokemon, ItemPokemonBinding>(
+    { layoutInflater, root -> ItemPokemonBinding.inflate(layoutInflater, root, false) }
+) {
+
+    bind {
+        binding.data = item
+    }
+}

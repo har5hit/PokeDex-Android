@@ -49,6 +49,7 @@ android {
 dependencies {
     implementation deps.constraint_layout
     implementation deps.lifecycle.viewmodel_ktx
+    implementation deps.support.cardview
 
 
     androidTestImplementation deps.espresso.core
@@ -76,10 +77,18 @@ dependencies {
     kapt deps.dagger.compiler
 
     api deps.hilt.runtime
+    api deps.hilt.viewmodel
+    kapt deps.hilt.viewmodel_compiler
     kapt deps.hilt.compiler
 
+    implementation deps.glide.runtime
+    kapt deps.glide.compiler
 
+    implementation deps.delegate_adapter.delegate
+    implementation deps.delegate_adapter.dsl
+    implementation deps.delegate_adapter.view_binding
 
+    implementation deps.swipe_refresh
     api project(":helpers")
 
 

@@ -21,6 +21,6 @@ import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
 
 fun PokemonResponseModel.toDomainModel(): Pokemon {
     return Pokemon(
-        id
+        name, url
     )
 }

@@ -16,9 +16,10 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network
 
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex.helpers.api.NetworkResult
+import com.justadeveloper96.pokedex.helpers.pagination.PaginatedList
 
 interface IPokemonApi {
-    suspend fun get(): NetworkResult<PokemonListResponseModel>
+    suspend fun get(offset: Int, limit: Int): NetworkResult<PaginatedList<Pokemon>>
 }

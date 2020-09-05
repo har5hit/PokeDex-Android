@@ -17,18 +17,37 @@
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
 
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.IPokemonDao
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.IPokemonApi
-import com.justadeveloper96.pokedex.helpers.api.NetworkResult
+import com.justadeveloper96.pokedex.helpers.api.Loading
+import com.justadeveloper96.pokedex.helpers.api.Success
 import com.justadeveloper96.pokedex.helpers.pagination.PaginatedList
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class PokemonRepository @Inject constructor(
     private val pokemonApi: IPokemonApi,
     private val pokemonDao: IPokemonDao
 ) : IPokemonRepository {
-    override suspend fun get(): Flow<NetworkResult<PaginatedList<Pokemon>>> {
-        TODO("Not yet implemented")
+
+    override suspend fun get(offset: Int, limit: Int) =
+        combine(
+            pokemonDao.all(), fetchPokemonList(offset, limit)
+        )
+        { a, b ->
+            val data = PaginatedList(a.toList(), maxOf(a.size, b.data?.total ?: 0))
+            b.modify(data)
+        }
+
+    private suspend fun fetchPokemonList(offset: Int, limit: Int) = flow {
+        emit(Loading())
+        val result = pokemonApi.get(offset, limit)
+        if (result is Success) {
+            if (offset == 0) {
+                pokemonDao.removeAll()
+            }
+            pokemonDao.insert(result.data.data)
+        }
+        emit(result)
     }
 }

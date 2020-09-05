@@ -18,10 +18,10 @@ package com.justadeveloper96.pokedex.android.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.IPokemonDao
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.PokemonDao
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.model.PokemonDaoModel
 
 @Database(entities = arrayOf(PokemonDaoModel::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun pokemonDao(): IPokemonDao
+    abstract fun pokemonDao(): PokemonDao
 }

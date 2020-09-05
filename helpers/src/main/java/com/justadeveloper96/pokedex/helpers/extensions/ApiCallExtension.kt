@@ -20,10 +20,18 @@ import com.justadeveloper96.pokedex.helpers.api.Error
 import com.justadeveloper96.pokedex.helpers.api.NetworkResult
 import com.justadeveloper96.pokedex.helpers.api.Success
 
+inline fun <T, E> execute(serviceCall: () -> T, transform: (T) -> E): NetworkResult<E> {
+    return try {
+        Success(transform(serviceCall()))
+    } catch (e: Exception) {
+        Error(message = e.message)
+    }
+}
+
 inline fun <T> execute(serviceCall: () -> T): NetworkResult<T> {
     return try {
         Success(serviceCall())
     } catch (e: Exception) {
-         Error(message = e.message)
+        Error(message = e.message)
     }
 }

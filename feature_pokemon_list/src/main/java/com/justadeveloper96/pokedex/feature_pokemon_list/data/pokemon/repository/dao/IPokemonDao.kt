@@ -17,26 +17,19 @@
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.model.PokemonDaoModel
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface IPokemonDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(list: List<PokemonDaoModel>)
+    fun insert(list: List<Pokemon>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item: PokemonDaoModel)
+    fun insert(item: Pokemon)
 
-    @Query("SELECT * FROM PokemonDaoModel")
-    fun all(): Flow<List<PokemonDaoModel>>
+    fun all(): Flow<List<Pokemon>>
 
-    @Query("DELETE FROM PokemonDaoModel")
     fun removeAll()
 
 }

@@ -18,15 +18,14 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repositor
 
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.model.PokemonDaoModel
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model.PokemonResponseModel
 
-fun PokemonDaoModel.toPokemon(): Pokemon {
+fun PokemonDaoModel.toDomainModel(): Pokemon {
     return Pokemon(
         id
     )
 }
 
-fun PokemonResponseModel.toPokemonDaoModel(): PokemonDaoModel {
+fun Pokemon.toDaoModel(): PokemonDaoModel {
     return PokemonDaoModel(
         id
     )

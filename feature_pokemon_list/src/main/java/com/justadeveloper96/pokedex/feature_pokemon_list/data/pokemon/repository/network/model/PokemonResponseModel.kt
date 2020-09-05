@@ -18,5 +18,5 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repositor
 
 
 data class PokemonResponseModel(
-    val id: String
+    val id: Int
 )

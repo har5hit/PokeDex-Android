@@ -16,11 +16,36 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
 
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.IPokemonDao
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
-import com.justadeveloper96.pokedex.helpers.api.NetworkResult
-import com.justadeveloper96.pokedex.helpers.pagination.PaginatedList
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 
-interface IPokemonRepository {
-    suspend fun get(offset: Int, limit: Int): Flow<NetworkResult<PaginatedList<Pokemon>>>
+class FakePokemonDao : IPokemonDao {
+
+    val channel = Channel<List<Pokemon>>(1)
+
+    val data = mutableListOf<Pokemon>()
+
+    override fun insert(list: List<Pokemon>) {
+        data.addAll(list.toList())
+        invalidate()
+    }
+
+    override fun insert(item: Pokemon) {
+        data.add(item)
+        invalidate()
+    }
+
+    override fun all(): Flow<List<Pokemon>> = channel.receiveAsFlow()
+
+    override fun removeAll() {
+        data.clear()
+        invalidate()
+    }
+
+    private fun invalidate() {
+        channel.offer(data)
+    }
 }

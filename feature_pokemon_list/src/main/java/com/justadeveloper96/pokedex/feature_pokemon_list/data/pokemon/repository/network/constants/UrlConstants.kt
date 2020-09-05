@@ -14,26 +14,14 @@
  * limitations under the License.
  */
 
-package com.justadeveloper96.pokedex.android.di.module
+package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.constants
 
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+class UrlConstants {
 
-@Module
-@InstallIn(ApplicationComponent::class)
-object NetworkClientModule {
+    val IMAGE_HOST_URL = "https://pokeres.bastionbot.org/images/pokemon"
 
-    val HOST_URL = "https://pokeapi.co"
-
-    @Provides
-    fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(HOST_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    fun imageUrl(url: String): String {
+        val id = url.split("/").dropLast(1).last()
+        return "$IMAGE_HOST_URL/$id.png"
     }
 }

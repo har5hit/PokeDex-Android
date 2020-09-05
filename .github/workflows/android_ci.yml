@@ -16,6 +16,6 @@ jobs:
         with:
           java-version: 1.8
       - name: Create unit test sources
-        run: ./gradlew compileUnitTestSources
+        run: ./gradlew compileDebugUnitTestSources
       - name: Run tests
         run: ./gradlew testDebugUnitTest

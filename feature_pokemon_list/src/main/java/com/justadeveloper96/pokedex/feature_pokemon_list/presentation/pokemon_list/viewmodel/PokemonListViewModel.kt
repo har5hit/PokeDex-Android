@@ -20,10 +20,20 @@ class PokemonListViewModel @ViewModelInject constructor(
         get() = UIState(true, listOf())
 
     private val limit = 10
-    private var offset = 0
 
+    private var offset = 0
     private var loading = false
     private var moreAvailable = true
+
+    override fun refresh() {
+        clearFlags()
+        fetch()
+    }
+
+    private fun clearFlags() {
+        offset = 0
+        moreAvailable = true
+    }
 
     override fun fetch() {
         viewModelScope.launch(coroutineDispatcher) {

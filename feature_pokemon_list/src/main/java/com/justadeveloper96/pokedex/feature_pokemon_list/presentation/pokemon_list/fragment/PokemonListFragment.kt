@@ -51,11 +51,13 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding>(), IView<UI
     val adapter = PokemonListAdapter()
 
     private fun setupView() {
+        binding.refresh.setOnRefreshListener {
+            viewModel.refresh()
+        }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.onEndReached {
             viewModel.fetch()
         }
-
     }
 
     override fun onEvent(event: UIEvent) {

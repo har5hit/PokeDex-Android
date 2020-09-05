@@ -43,7 +43,7 @@ class PokemonListViewModelTest : StringSpec({
         viewModel.state.first() shouldBe UIState(list = data.data.map { it.toPokemonUiModel() })
     }
 
-    "paginate for new items"{
+    "pagination for new items and refresh"{
         val viewModel = PokemonListViewModel(dispatcher, repository)
 
         val dataChannel = Channel<NetworkResult<PaginatedList<Pokemon>>>(1)
@@ -69,6 +69,11 @@ class PokemonListViewModelTest : StringSpec({
         viewModel.fetch()
 
         coVerify(inverse = true) { repository.get(eq(30), eq(10)) }
+
+        viewModel.refresh()
+
+        viewModel.state.first() shouldBe UIState(list = data1.data.map { it.toPokemonUiModel() })
+
     }
 
 })

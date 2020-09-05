@@ -21,7 +21,11 @@ object UrlConstants {
     val IMAGE_HOST_URL = "https://pokeres.bastionbot.org/images/pokemon"
 
     fun imageUrl(url: String): String {
-        val id = url.split("/").dropLast(1).last()
-        return "$IMAGE_HOST_URL/$id.png"
+        return try {
+            val id = url.split("/").dropLast(1).last()
+            "$IMAGE_HOST_URL/$id.png"
+        } catch (e: Exception) {
+            ""
+        }
     }
 }

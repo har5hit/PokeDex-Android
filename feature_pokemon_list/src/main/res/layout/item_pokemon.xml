@@ -17,7 +17,6 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.pokemon_list.fragment.PokemonListFragment">
 
@@ -30,21 +29,29 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/holo_red_light">
+        android:layout_height="150dp"
+        android:layout_margin="12dp">
 
-        <ImageView
-            android:id="@+id/image"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@{data.color}"
+            android:padding="12dp">
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{data.name}"
-            android:textColor="@android:color/white"
-            tools:text="Pikachu" />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="end" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.name}"
+                android:textColor="@android:color/white"
+                tools:text="Pikachu" />
+        </FrameLayout>
     </androidx.cardview.widget.CardView>
 </layout>

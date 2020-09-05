@@ -16,6 +16,7 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.adapter
 
+import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.justadeveloper96.pokedex.feature_pokemon_list.databinding.ItemPokemonBinding
 import com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.viewmodel.PokemonUiModel
@@ -27,5 +28,6 @@ fun pokemonListItemDelegate() =
 
         bind {
             binding.data = item
+            Glide.with(binding.root.context).load(item.image).into(binding.image)
         }
     }

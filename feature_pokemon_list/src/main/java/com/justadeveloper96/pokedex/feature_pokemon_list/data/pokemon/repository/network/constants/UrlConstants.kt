@@ -16,7 +16,7 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.constants
 
-class UrlConstants {
+object UrlConstants {
 
     val IMAGE_HOST_URL = "https://pokeres.bastionbot.org/images/pokemon"
 

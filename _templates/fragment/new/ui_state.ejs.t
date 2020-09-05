@@ -1,5 +1,5 @@
 ---
-to: <%= module %>/src/main/java/com/justadeveloper96/pokedex/<%= module %>//presentation/<%=h.changeCase.snake(name) %>/viewmodel/UIState.kt
+to: <%= module %>/src/main/java/com/justadeveloper96/pokedex/<%= module %>/presentation/<%=h.changeCase.snake(name) %>/viewmodel/UIState.kt
 ---
 <%
  folder = h.changeCase.snake(name)

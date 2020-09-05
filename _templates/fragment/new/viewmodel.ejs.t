@@ -7,10 +7,13 @@ to: <%= module %>/src/main/java/com/justadeveloper96/pokedex/<%= module %>/prese
 %>
 package com.justadeveloper96.pokedex.<%= module %>.presentation.<%=folder %>.viewmodel
 
-import javax.inject.Inject
+import androidx.hilt.lifecycle.ViewModelInject
+import kotlinx.coroutines.CoroutineDispatcher
 import com.justadeveloper96.pokedex.helpers.viewmodel.BaseViewModel
 
-class <%=name %>ViewModel @Inject constructor():BaseViewModel<UIState, UIEvent>(), I<%=name %>ViewModel{
+class <%=name %>ViewModel @ViewModelInject constructor(
+    private val coroutineDispatcher: CoroutineDispatcher
+):BaseViewModel<UIState, UIEvent>(), I<%=name %>ViewModel{
     override val initialState
             get() = UIState(true)
 }

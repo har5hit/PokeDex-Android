@@ -1,0 +1,19 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - before: >
+      source ~/.bashrc
+    init: |
+      echo "Wait for the installation"
+      yes | sdk i java 8.0.232-open
+      sdk i kotlin
+      sdkmanager --update
+    command: >
+      echo "Ready!"
+
+ports:
+  - port: 8080
+    onOpen: open-preview
+  - port: 5037
+    onOpen: ignore

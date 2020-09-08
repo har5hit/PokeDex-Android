@@ -3,6 +3,7 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_l
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
+import com.justadeveloper96.pokedex.helpers.api.Error
 import com.justadeveloper96.pokedex.helpers.api.Loading
 import com.justadeveloper96.pokedex.helpers.api.Success
 import com.justadeveloper96.pokedex.helpers.viewmodel.BaseViewModel

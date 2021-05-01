@@ -42,5 +42,4 @@ class DatabaseModule {
     fun pokemonDao(database: AppDatabase): IPokemonDao {
         return database.pokemonDao()
     }
-
 }

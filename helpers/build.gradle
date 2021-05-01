@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion build_versions.compile_sdk
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion build_versions.min_sdk
@@ -52,5 +52,7 @@ dependencies {
 
     api deps.javax_annotation
     api deps.javax_inject
-
+    api deps.google.gson
+    api deps.retrofit.runtime
+    api deps.retrofit.gson
 }

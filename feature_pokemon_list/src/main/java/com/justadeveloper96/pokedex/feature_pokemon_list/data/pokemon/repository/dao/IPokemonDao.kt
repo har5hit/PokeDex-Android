@@ -20,7 +20,6 @@ import androidx.room.Dao
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface IPokemonDao {
 
@@ -31,5 +30,4 @@ interface IPokemonDao {
     fun all(): Flow<List<Pokemon>>
 
     fun removeAll()
-
 }

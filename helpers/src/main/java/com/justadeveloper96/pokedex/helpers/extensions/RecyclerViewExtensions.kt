@@ -18,7 +18,6 @@ package com.justadeveloper96.pokedex.helpers.extensions
 
 import androidx.recyclerview.widget.RecyclerView
 
-
 fun RecyclerView.onEndReached(callback: () -> Unit) {
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

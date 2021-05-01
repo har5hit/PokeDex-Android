@@ -16,7 +16,6 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model
 
-
 data class PokemonListResponseModel(
     val count: Int,
     val results: List<PokemonResponseModel>

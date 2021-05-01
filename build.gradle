@@ -4,15 +4,24 @@ buildscript {
     repositories {
         google()
         jcenter()
+        gradlePluginPortal()
+
+        mavenCentral()
     }
     dependencies {
         classpath deps.android.plugin
         classpath deps.kotlin.plugin
         classpath deps.hilt.plugin
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.0.0"
     }
 }
 
+
 allprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+    ktlint {
+        debug = true
+    }
     repositories {
         google()
         jcenter()

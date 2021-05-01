@@ -5,6 +5,16 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
+    signingConfigs {
+        release {
+            Properties keystoreProps = new Properties()
+            keystoreProps.load(new FileInputStream(file('../keystore/keystore.properties')))
+            storePassword keystoreProps['storePassword']
+            storeFile file(keystoreProps['keyStore'])
+            keyAlias keystoreProps['keyAlias']
+            keyPassword keystoreProps['keyPassword']
+        }
+    }
     compileSdkVersion build_versions.compile_sdk
     buildToolsVersion "29.0.3"
 
@@ -16,6 +26,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {

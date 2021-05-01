@@ -16,38 +16,39 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network
 
+import com.justadeveloper96.pokedex.core.api.AppNetworkResult
+import com.justadeveloper96.pokedex.core.api.execute
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.mapper.toDomainModel
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
-import com.justadeveloper96.pokedex.helpers.api.NetworkResult
-import com.justadeveloper96.pokedex.helpers.extensions.execute
 import com.justadeveloper96.pokedex.helpers.pagination.PaginatedList
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 import javax.inject.Inject
 
-class PokemonApi @Inject constructor(private val retrofit: Retrofit) : IPokemonApi {
+class PokemonApi @Inject constructor(retrofit: Retrofit) : IPokemonApi {
 
-    val service = retrofit.create(IRetrofitService::class.java)
+    private val service = retrofit.create(IRetrofitService::class.java)
 
-
-    override suspend fun get(offset: Int, limit: Int): NetworkResult<PaginatedList<Pokemon>> {
-        return execute({ service.get(offset, limit) },
-            { i -> PaginatedList(i.results.map { it.toDomainModel() }, i.count) })
+    override suspend fun get(offset: Int, limit: Int): AppNetworkResult<PaginatedList<Pokemon>> {
+        return execute(
+            { service.get(offset, limit) },
+            { i -> PaginatedList(i.results.map { it.toDomainModel() }, i.count) }
+        )
     }
 
-    interface IRetrofitService {
+    private interface IRetrofitService {
 
         companion object {
-            const val ENDPOINT = "/api/v2/pokemon"
+            private const val ENDPOINT = "/api/v2/pokemon"
         }
 
         @GET(ENDPOINT)
         suspend fun get(
             @Query("offset") offset: Int,
             @Query("limit") limit: Int
-        ): PokemonListResponseModel
-
+        ): Response<PokemonListResponseModel>
     }
 }

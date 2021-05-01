@@ -2,15 +2,15 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_l
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
+import com.justadeveloper96.pokedex.core.api.Loading
+import com.justadeveloper96.pokedex.core.api.NetworkException
+import com.justadeveloper96.pokedex.core.api.Success
+import com.justadeveloper96.pokedex.core.api.Unsuccessful
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
-import com.justadeveloper96.pokedex.helpers.api.Error
-import com.justadeveloper96.pokedex.helpers.api.Loading
-import com.justadeveloper96.pokedex.helpers.api.Success
 import com.justadeveloper96.pokedex.helpers.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 
 class PokemonListViewModel @ViewModelInject constructor(
     private val coroutineDispatcher: CoroutineDispatcher,
@@ -25,6 +25,7 @@ class PokemonListViewModel @ViewModelInject constructor(
     private var offset = 0
     private var loading = false
     private var moreAvailable = true
+    private var list = listOf<PokemonUiModel>()
 
     override fun refresh() {
         clearFlags()
@@ -40,6 +41,7 @@ class PokemonListViewModel @ViewModelInject constructor(
         viewModelScope.launch(coroutineDispatcher) {
             if (moreAvailable && !loading) {
                 loading = true
+                invalidate()
                 fetchNewItems()
             }
         }
@@ -49,21 +51,28 @@ class PokemonListViewModel @ViewModelInject constructor(
         repository.get(offset, limit).collect {
             when (it) {
                 is Loading -> {
-                    state.value = UIState(
-                        loading = true,
-                        list = it.data?.data?.map { it.toPokemonUiModel() } ?: listOf())
+                    loading = true
+                    list = it.data?.data?.map { it.toPokemonUiModel() } ?: listOf()
                 }
                 is Success -> {
                     loading = false
                     offset = it.data.data.size
-                    state.value = UIState(list = it.data.data.map { it.toPokemonUiModel() })
+                    list = it.data.data.map { it.toPokemonUiModel() }
                     moreAvailable = it.data.moreAvailable
                 }
-                is Error -> {
+                is Unsuccessful, is NetworkException -> {
                     loading = false
-                    event.value = Message("Error!")
+                    event.offer(Message(it.error))
                 }
             }
+            invalidate()
         }
+    }
+
+    private fun invalidate() {
+        state.value = UIState(
+            loading = loading,
+            list = list
+        )
     }
 }

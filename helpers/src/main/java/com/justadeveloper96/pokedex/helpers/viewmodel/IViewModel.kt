@@ -16,9 +16,10 @@
 
 package com.justadeveloper96.pokedex.helpers.viewmodel
 
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 
 interface IViewModel<T, E> {
     val state: Flow<T>
-    val event: Flow<E?>
+    val event: Channel<E?>
 }

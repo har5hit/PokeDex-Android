@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+}
+
+dependencies {
+
+    api project(":helpers")
+
+    //testing
+    testImplementation deps.kotest.core
+    testImplementation deps.kotest.runner
+    testImplementation deps.kotest.property
+
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    testImplementation deps.kotlin.coroutine_android_test
+
+    testImplementation deps.mockito.core
+    testImplementation deps.mockito.android
+
+    testImplementation deps.kotest.core
+    testImplementation deps.kotest.runner
+    testImplementation deps.kotest.property
+
+    testImplementation "io.mockk:mockk:1.10.0"
+}

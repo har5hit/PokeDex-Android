@@ -17,11 +17,11 @@
 package com.justadeveloper96.pokedex.helpers.viewmodel
 
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 abstract class BaseViewModel<T, E> : ViewModel(), IViewModel<T, E> {
     abstract val initialState: T
     override val state = MutableStateFlow<T>(initialState)
-    override val event = MutableStateFlow<E?>(null)
-
+    override val event = Channel<E?>(1)
 }

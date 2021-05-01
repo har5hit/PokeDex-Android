@@ -16,24 +16,12 @@
 
 package com.justadeveloper96.pokedex.helpers.api
 
-sealed class NetworkResult<T>(open val data: T?) {
-    fun <E> modify(data: E): NetworkResult<E> {
-        return when (this) {
-            is Success -> {
-                Success(data)
-            }
-            is Loading -> {
-                Loading(data)
-            }
-            is Error -> {
-                Error(data)
-            }
-        }
-    }
-}
+open class NetworkResult<T, E>(
+    open val data: T? = null,
+    open val code: Int? = null,
+    open val exception: Exception? = null,
+    open val error: E? = null,
+    open val state: State
+)
 
-data class Success<T>(override val data: T) : NetworkResult<T>(data)
-data class Error<T>(override val data: T? = null, val message: String? = null) :
-    NetworkResult<T>(data)
-
-data class Loading<T>(override val data: T? = null) : NetworkResult<T>(data)
+enum class State { SUCCESS, UNSUCCESSFUL, ERROR, LOADING }

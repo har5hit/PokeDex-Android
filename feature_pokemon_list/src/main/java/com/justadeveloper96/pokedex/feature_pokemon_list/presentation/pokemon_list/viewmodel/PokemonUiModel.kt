@@ -3,8 +3,7 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_l
 import android.graphics.Color
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.constants.UrlConstants
-import java.util.*
-
+import java.util.Random
 
 data class PokemonUiModel(
     val name: String,
@@ -21,9 +20,7 @@ data class PokemonUiModel(
     private fun setDefaultColor() {
         val rnd: Random = Random()
         color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-
     }
-
 }
 
 fun Pokemon.toPokemonUiModel(): PokemonUiModel {

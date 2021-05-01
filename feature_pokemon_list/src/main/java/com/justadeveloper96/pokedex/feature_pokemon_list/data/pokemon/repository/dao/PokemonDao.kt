@@ -27,7 +27,6 @@ import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
 @Dao
 interface PokemonDao : IPokemonDao {
 
@@ -50,7 +49,6 @@ interface PokemonDao : IPokemonDao {
     override fun insert(item: Pokemon) {
         _insert(item.toDaoModel())
     }
-
 
     override fun all(): Flow<List<Pokemon>> {
         return _all().map { it.map { it.toDomainModel() } }

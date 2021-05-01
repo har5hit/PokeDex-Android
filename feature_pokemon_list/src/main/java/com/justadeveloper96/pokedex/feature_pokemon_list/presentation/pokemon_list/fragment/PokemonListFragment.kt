@@ -1,6 +1,5 @@
 package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.fragment
 
-
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,6 +18,7 @@ import com.justadeveloper96.pokedex.helpers.fragment.BaseFragment
 import com.justadeveloper96.pokedex.helpers.view.IView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -38,7 +38,9 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding>(), IView<UI
             viewModel.state.collect {
                 render(it)
             }
-            viewModel.event.collect {
+        }
+        lifecycleScope.launch {
+            viewModel.event.consumeAsFlow().collect {
                 it?.let { it1 -> onEvent(it1) }
             }
         }
@@ -46,7 +48,6 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding>(), IView<UI
 
     override val layout: Int
         get() = R.layout.fragment_pokemon_list
-
 
     val adapter = PokemonListAdapter()
 
@@ -77,5 +78,4 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding>(), IView<UI
         adapter.items = state.list
         binding.refresh.isRefreshing = state.loading
     }
-
 }

@@ -31,5 +31,4 @@ object CoroutineDispatcherModule {
     fun provideDefaultDispatcher(): CoroutineDispatcher {
         return Dispatchers.IO
     }
-
 }

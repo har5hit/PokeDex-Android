@@ -1,0 +1,1 @@
+-keep class com.justadeveloper96.pokedex.core.api.model.** { *; }

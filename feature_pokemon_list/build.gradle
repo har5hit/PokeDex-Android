@@ -6,7 +6,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion build_versions.compile_sdk
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion build_versions.min_sdk
@@ -20,7 +20,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -52,26 +52,12 @@ dependencies {
     implementation deps.support.cardview
 
 
-    androidTestImplementation deps.espresso.core
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    testImplementation deps.kotlin.coroutine_android_test
 
-    testImplementation deps.mockito.core
-    testImplementation deps.mockito.android
-
-    testImplementation deps.kotest.core
-    testImplementation deps.kotest.runner
-    testImplementation deps.kotest.property
-
-    testImplementation "io.mockk:mockk:1.10.0"
 
 
     implementation deps.room.runtime
     kapt deps.room.compiler
     implementation deps.room.ktx
-
-    api deps.retrofit.runtime
-    api deps.retrofit.gson
 
     api deps.dagger.runtime
     kapt deps.dagger.compiler
@@ -90,7 +76,24 @@ dependencies {
 
     implementation deps.swipe_refresh
     implementation deps.support.palette
-    api project(":helpers")
+    api project(":core")
 
+    //testing
+    testImplementation deps.kotest.core
+    testImplementation deps.kotest.runner
+    testImplementation deps.kotest.property
+
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    testImplementation deps.kotlin.coroutine_android_test
+
+    testImplementation deps.mockito.core
+    testImplementation deps.mockito.android
+
+    testImplementation deps.kotest.core
+    testImplementation deps.kotest.runner
+    testImplementation deps.kotest.property
+
+    testImplementation "io.mockk:mockk:1.10.0"
 
 }

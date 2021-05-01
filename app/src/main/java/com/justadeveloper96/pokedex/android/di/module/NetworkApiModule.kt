@@ -29,5 +29,4 @@ interface NetworkApiModule {
 
     @Binds
     fun pokemonApi(pokemonApi: PokemonApi): IPokemonApi
-
 }

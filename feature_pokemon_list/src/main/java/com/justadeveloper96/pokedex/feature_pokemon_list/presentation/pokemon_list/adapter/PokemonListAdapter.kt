@@ -29,11 +29,11 @@ val diffUtil = object : DiffUtil.ItemCallback<PokemonUiModel>() {
     override fun areContentsTheSame(oldItem: PokemonUiModel, newItem: PokemonUiModel): Boolean {
         return oldItem == newItem
     }
-
 }
 
 class PokemonListAdapter : AsyncListDifferDelegationAdapter<PokemonUiModel>(
     diffUtil,
     AdapterDelegatesManager<List<PokemonUiModel>>().apply {
         addDelegate(pokemonListItemDelegate())
-    })
+    }
+)

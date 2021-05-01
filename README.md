@@ -9,7 +9,7 @@ A Demo Application for implementing below items in an Android application,
 * Unit Testing via [kotest](https://github.com/kotest/kotest) and [Mockk](https://mockk.io/)
 * Threading using [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines).
 * Replacing LiveData with [Kotlin Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/).
-
+* Ktlint
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 

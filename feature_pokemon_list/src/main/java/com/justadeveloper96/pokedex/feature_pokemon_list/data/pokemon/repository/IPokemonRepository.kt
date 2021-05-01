@@ -16,11 +16,11 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
 
+import com.justadeveloper96.pokedex.core.api.AppNetworkResult
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
-import com.justadeveloper96.pokedex.helpers.api.NetworkResult
 import com.justadeveloper96.pokedex.helpers.pagination.PaginatedList
 import kotlinx.coroutines.flow.Flow
 
 interface IPokemonRepository {
-    suspend fun get(offset: Int, limit: Int): Flow<NetworkResult<PaginatedList<Pokemon>>>
+    suspend fun get(offset: Int, limit: Int): Flow<AppNetworkResult<PaginatedList<Pokemon>>>
 }

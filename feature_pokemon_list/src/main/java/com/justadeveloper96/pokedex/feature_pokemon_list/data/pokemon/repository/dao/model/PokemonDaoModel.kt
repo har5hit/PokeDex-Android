@@ -19,7 +19,6 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repositor
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
 @Entity
 data class PokemonDaoModel(
     @PrimaryKey

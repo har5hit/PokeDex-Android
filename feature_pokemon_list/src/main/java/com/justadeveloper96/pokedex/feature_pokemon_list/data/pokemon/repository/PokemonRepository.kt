@@ -16,10 +16,10 @@
 
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
 
+import com.justadeveloper96.pokedex.core.api.Loading
+import com.justadeveloper96.pokedex.core.api.Success
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.IPokemonDao
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.IPokemonApi
-import com.justadeveloper96.pokedex.helpers.api.Loading
-import com.justadeveloper96.pokedex.helpers.api.Success
 import com.justadeveloper96.pokedex.helpers.pagination.PaginatedList
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
@@ -33,8 +33,7 @@ class PokemonRepository @Inject constructor(
     override suspend fun get(offset: Int, limit: Int) =
         combine(
             pokemonDao.all(), fetchPokemonList(offset, limit)
-        )
-        { a, b ->
+        ) { a, b ->
             val data = PaginatedList(a.toList(), maxOf(a.size, b.data?.total ?: 0))
             b.modify(data)
         }

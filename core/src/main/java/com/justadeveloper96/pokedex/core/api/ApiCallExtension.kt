@@ -30,17 +30,28 @@ inline fun <reified T, reified E> execute(
         val data = serviceCall()
         Success(data = transform(data.body()!!), code = data.code())
     } catch (e: HttpException) {
-        e.printStackTrace()
-        val errorString =
-            e.response()?.errorBody()?.string()?.let { Gson().fromJson<AppServerError>(it) }?.error
-                ?: ApiUtils.getErrorMessage(e)
-        return Unsuccessful(
-            error = errorString,
-            code = e.code()
-        )
+        val code = e.code()
+        return try {
+            e.printStackTrace()
+            val errorString =
+                e.response()?.errorBody()?.string()
+                    ?.let { Gson().fromJson<AppServerError>(it) }?.error
+                    ?: ApiUtils.getErrorMessage(e)
+            Unsuccessful(
+                error = errorString,
+                code = code,
+                message = errorString
+            )
+        } catch (e: Exception) {
+            Unsuccessful(
+                error = ApiUtils.getErrorMessage(e),
+                code = code,
+                message = ApiUtils.getErrorMessage(e)
+            )
+        }
     } catch (e: Exception) {
         e.printStackTrace()
-        NetworkException(error = ApiUtils.getErrorMessage(e), exception = e)
+        NetworkException(message = ApiUtils.getErrorMessage(e), exception = e)
     }
 }
 

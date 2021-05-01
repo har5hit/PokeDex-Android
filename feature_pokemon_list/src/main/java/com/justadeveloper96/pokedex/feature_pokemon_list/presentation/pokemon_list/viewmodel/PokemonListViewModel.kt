@@ -62,7 +62,7 @@ class PokemonListViewModel @ViewModelInject constructor(
                 }
                 is Unsuccessful, is NetworkException -> {
                     loading = false
-                    event.offer(Message(it.error))
+                    event.offer(Message(it.message))
                 }
             }
             invalidate()

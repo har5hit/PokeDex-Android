@@ -40,7 +40,8 @@ class ApiCallExtensionKtTest : StringSpec({
             HttpException(Response.error<String>(404, ResponseBody.create(null, errorJson)))
         val expectedError = Unsuccessful<String>(
             error = errorModel.error,
-            code = 404
+            code = 404,
+            message = errorModel.error
         )
         execute<String, Map<String, String>>(
             { throw exception },
@@ -51,7 +52,7 @@ class ApiCallExtensionKtTest : StringSpec({
     "error case" {
         val exception = SocketException()
         val expectedError = NetworkException<String>(
-            error = ApiUtils.ERR_TIMEOUT,
+            message = ApiUtils.ERR_TIMEOUT,
             exception = exception
         )
         execute<String, Map<String, String>>(

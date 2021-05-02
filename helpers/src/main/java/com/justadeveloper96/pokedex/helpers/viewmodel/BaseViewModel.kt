@@ -24,4 +24,12 @@ abstract class BaseViewModel<T, E> : ViewModel(), IViewModel<T, E> {
     abstract val initialState: T
     override val state = MutableStateFlow<T>(initialState)
     override val event = Channel<E?>(1)
+
+    protected fun updateState(newState: T) {
+        state.value = newState
+    }
+
+    protected fun pushEvent(newEvent: E) {
+        event.offer(newEvent)
+    }
 }

@@ -62,7 +62,7 @@ class PokemonListViewModel @ViewModelInject constructor(
                 }
                 is Unsuccessful, is NetworkException -> {
                     loading = false
-                    event.offer(Message(it.message))
+                    pushEvent(Message(it.message))
                 }
             }
             invalidate()
@@ -70,9 +70,11 @@ class PokemonListViewModel @ViewModelInject constructor(
     }
 
     private fun invalidate() {
-        state.value = UIState(
-            loading = loading,
-            list = list
+        updateState(
+            UIState(
+                loading = loading,
+                list = list
+            )
         )
     }
 }

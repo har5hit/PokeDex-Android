@@ -6,7 +6,6 @@ import com.justadeveloper96.pokedex.core.utils.loadModelFromAsset
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import okhttp3.ResponseBody
-import retrofit2.HttpException
 import retrofit2.Response
 import java.net.SocketException
 
@@ -36,15 +35,14 @@ class ApiCallExtensionKtTest : StringSpec({
             ClassLoader.getSystemClassLoader(),
             "error/badRequest.json"
         )
-        val exception =
-            HttpException(Response.error<String>(404, ResponseBody.create(null, errorJson)))
+        val error = Response.error<String>(404, ResponseBody.create(null, errorJson))
         val expectedError = Unsuccessful<String>(
             error = errorModel.error,
             code = 404,
             message = errorModel.error
         )
         execute<String, Map<String, String>>(
-            { throw exception },
+            { error },
             { result -> mapOf("data" to result) }
         ) shouldBe expectedError
     }

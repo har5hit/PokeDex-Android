@@ -19,7 +19,6 @@ package com.justadeveloper96.pokedex.core.api
 import com.google.gson.Gson
 import com.justadeveloper96.pokedex.core.api.model.AppServerError
 import com.justadeveloper96.pokedex.helpers.extensions.fromJson
-import retrofit2.HttpException
 import retrofit2.Response
 
 inline fun <reified T, reified E> execute(
@@ -28,26 +27,28 @@ inline fun <reified T, reified E> execute(
 ): AppNetworkResult<E> {
     return try {
         val data = serviceCall()
-        Success(data = transform(data.body()!!), code = data.code())
-    } catch (e: HttpException) {
-        val code = e.code()
-        return try {
-            e.printStackTrace()
-            val errorString =
-                e.response()?.errorBody()?.string()
-                    ?.let { Gson().fromJson<AppServerError>(it) }?.error
-                    ?: ApiUtils.getErrorMessage(e)
-            Unsuccessful(
-                error = errorString,
-                code = code,
-                message = errorString
-            )
-        } catch (e: Exception) {
-            Unsuccessful(
-                error = ApiUtils.getErrorMessage(e),
-                code = code,
-                message = ApiUtils.getErrorMessage(e)
-            )
+        if (data.isSuccessful) {
+            Success(data = transform(data.body()!!), code = data.code())
+        } else {
+            val code = data.code()
+            return try {
+                val errorString =
+                    data.errorBody()?.string()
+                        ?.let { Gson().fromJson<AppServerError>(it) }?.error
+                        ?: ApiUtils.ERR_DEFAULT_MSG
+                Unsuccessful(
+                    error = errorString,
+                    code = code,
+                    message = errorString
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Unsuccessful(
+                    error = ApiUtils.getErrorMessage(e),
+                    code = code,
+                    message = ApiUtils.getErrorMessage(e)
+                )
+            }
         }
     } catch (e: Exception) {
         e.printStackTrace()

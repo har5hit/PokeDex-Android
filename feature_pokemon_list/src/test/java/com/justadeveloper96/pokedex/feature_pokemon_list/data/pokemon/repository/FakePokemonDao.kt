@@ -17,35 +17,35 @@
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository
 
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.IPokemonDao
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.model.PokemonDaoModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 
 class FakePokemonDao : IPokemonDao {
 
-    val channel = Channel<List<Pokemon>>(1)
+    val channel = Channel<List<PokemonDaoModel>>(1)
 
-    val data = mutableListOf<Pokemon>()
+    val data = mutableListOf<PokemonDaoModel>()
 
-    override fun insert(list: List<Pokemon>) {
+    override fun insert(list: List<PokemonDaoModel>) {
         data.addAll(list.toList())
         invalidate()
     }
 
-    override fun insert(item: Pokemon) {
+    override fun insert(item: PokemonDaoModel) {
         data.add(item)
         invalidate()
     }
 
-    override fun all(): Flow<List<Pokemon>> = channel.receiveAsFlow()
+    override fun all(): Flow<List<PokemonDaoModel>> = channel.receiveAsFlow()
 
-    override fun removeAll() {
+    override fun deleteAll() {
         data.clear()
         invalidate()
     }
 
     private fun invalidate() {
-        channel.offer(data)
+        channel.trySend(data)
     }
 }

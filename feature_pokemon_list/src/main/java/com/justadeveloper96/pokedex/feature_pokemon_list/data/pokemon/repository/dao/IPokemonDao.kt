@@ -17,17 +17,17 @@
 package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao
 
 import androidx.room.Dao
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.model.PokemonDaoModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface IPokemonDao {
 
-    fun insert(list: List<Pokemon>)
+    fun insert(list: List<PokemonDaoModel>)
 
-    fun insert(item: Pokemon)
+    fun insert(item: PokemonDaoModel)
 
-    fun all(): Flow<List<Pokemon>>
+    fun all(): Flow<List<PokemonDaoModel>>
 
-    fun removeAll()
+    fun deleteAll()
 }

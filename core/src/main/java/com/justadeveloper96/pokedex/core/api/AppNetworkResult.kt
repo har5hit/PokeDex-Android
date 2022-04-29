@@ -29,6 +29,24 @@ sealed class AppNetworkResult<T>(
 ) : NetworkResult<T, String>(
     data, code, message, exception, error, state
 ) {
+
+    fun <R> map(transform: (T) -> R): AppNetworkResult<R> {
+        return when (this) {
+            is Success -> {
+                Success(transform(data), code, message)
+            }
+            is Loading -> {
+                Loading(data?.let { transform(it) })
+            }
+            is Unsuccessful -> {
+                Unsuccessful(data?.let { transform(it) }, code, error, message)
+            }
+            is NetworkException -> {
+                NetworkException(data?.let { transform(it) }, exception, message)
+            }
+        }
+    }
+
     fun <T> modify(data: T): AppNetworkResult<T> {
         return when (this) {
             is Success -> {

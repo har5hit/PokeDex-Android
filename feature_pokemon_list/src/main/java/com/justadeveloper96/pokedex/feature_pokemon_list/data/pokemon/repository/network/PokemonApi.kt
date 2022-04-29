@@ -18,10 +18,7 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repositor
 
 import com.justadeveloper96.pokedex.core.api.AppNetworkResult
 import com.justadeveloper96.pokedex.core.api.execute
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.mapper.toDomainModel
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.model.PokemonListResponseModel
-import com.justadeveloper96.pokedex.helpers.pagination.PaginatedList
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.GET
@@ -32,11 +29,8 @@ class PokemonApi @Inject constructor(retrofit: Retrofit) : IPokemonApi {
 
     private val service = retrofit.create(IRetrofitService::class.java)
 
-    override suspend fun get(offset: Int, limit: Int): AppNetworkResult<PaginatedList<Pokemon>> {
-        return execute(
-            { service.get(offset, limit) },
-            { i -> PaginatedList(i.results.map { it.toDomainModel() }, i.count) }
-        )
+    override suspend fun get(offset: Int, limit: Int): AppNetworkResult<PokemonListResponseModel> {
+        return execute { service.get(offset, limit) }
     }
 
     private interface IRetrofitService {

@@ -29,7 +29,7 @@ class PokemonListViewModelTest : StringSpec({
         val data = PaginatedList(List(10) { i -> Pokemon(i.toString(), i.toString()) })
         coEvery { repository.get(0, 10) } returns dataChannel.consumeAsFlow()
 
-        dataChannel.offer(Loading(data))
+        dataChannel.trySend(Loading(data))
 
         viewModel.fetch()
 
@@ -38,7 +38,7 @@ class PokemonListViewModelTest : StringSpec({
             list = data.data.map { it.toPokemonUiModel() }
         )
 
-        dataChannel.offer(Success(data, 200))
+        dataChannel.trySend(Success(data, 200))
 
         viewModel.state.first() shouldBe UIState(list = data.data.map { it.toPokemonUiModel() })
     }
@@ -50,11 +50,11 @@ class PokemonListViewModelTest : StringSpec({
         val data1 = PaginatedList(List(10) { i -> Pokemon(i.toString(), i.toString()) }, total = 20)
         val data2 = PaginatedList(List(20) { i -> Pokemon(i.toString(), i.toString()) }, total = 20)
         coEvery { repository.get(eq(0), eq(10)) } answers {
-            dataChannel.offer(Success(data1, 200))
+            dataChannel.trySend(Success(data1, 200))
             dataChannel.consumeAsFlow()
         }
         coEvery { repository.get(eq(10), eq(10)) } answers {
-            dataChannel.offer(Success(data2, 200))
+            dataChannel.trySend(Success(data2, 200))
             dataChannel.consumeAsFlow()
         }
 

@@ -19,7 +19,10 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repositor
 import com.justadeveloper96.pokedex.core.api.Loading
 import com.justadeveloper96.pokedex.core.api.Success
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.IPokemonDao
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.mapper.toDaoModel
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.mapper.toDomainModel
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.IPokemonApi
+import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.network.mapper.toDomainModel
 import com.justadeveloper96.pokedex.helpers.pagination.PaginatedList
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
@@ -34,7 +37,8 @@ class PokemonRepository @Inject constructor(
         combine(
             pokemonDao.all(), fetchPokemonList(offset, limit)
         ) { a, b ->
-            val data = PaginatedList(a.toList(), maxOf(a.size, b.data?.total ?: 0))
+            val data =
+                PaginatedList(a.map { it.toDomainModel() }, maxOf(a.size, b.data?.total ?: 0))
             b.modify(data)
         }
 
@@ -43,10 +47,10 @@ class PokemonRepository @Inject constructor(
         val result = pokemonApi.get(offset, limit)
         if (result is Success) {
             if (offset == 0) {
-                pokemonDao.removeAll()
+                pokemonDao.deleteAll()
             }
-            pokemonDao.insert(result.data.data)
+            pokemonDao.insert(result.data.results.map { it.toDaoModel() })
         }
-        emit(result)
+        emit(result.map { PaginatedList(it.results.map { it.toDomainModel() }, it.count) })
     }
 }

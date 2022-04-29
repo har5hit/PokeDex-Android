@@ -20,37 +20,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.mapper.toDaoModel
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.mapper.toDomainModel
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.dao.model.PokemonDaoModel
-import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.model.Pokemon
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 @Dao
 interface PokemonDao : IPokemonDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun _insert(list: List<PokemonDaoModel>)
+    override fun insert(list: List<PokemonDaoModel>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun _insert(item: PokemonDaoModel)
+    override fun insert(item: PokemonDaoModel)
 
     @Query("SELECT * FROM PokemonDaoModel")
-    fun _all(): Flow<List<PokemonDaoModel>>
+    override fun all(): Flow<List<PokemonDaoModel>>
 
     @Query("DELETE FROM PokemonDaoModel")
-    override fun removeAll()
-
-    override fun insert(list: List<Pokemon>) {
-        _insert(list.map { it.toDaoModel() })
-    }
-
-    override fun insert(item: Pokemon) {
-        _insert(item.toDaoModel())
-    }
-
-    override fun all(): Flow<List<Pokemon>> {
-        return _all().map { it.map { it.toDomainModel() } }
-    }
+    override fun deleteAll()
 }

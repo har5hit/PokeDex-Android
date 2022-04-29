@@ -30,6 +30,6 @@ abstract class BaseViewModel<T, E> : ViewModel(), IViewModel<T, E> {
     }
 
     protected fun pushEvent(newEvent: E) {
-        event.offer(newEvent)
+        event.trySend(newEvent)
     }
 }

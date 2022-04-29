@@ -16,7 +16,6 @@ android {
 //        }
 //    }
     compileSdkVersion build_versions.compile_sdk
-    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.justadeveloper96.pokedex.android"

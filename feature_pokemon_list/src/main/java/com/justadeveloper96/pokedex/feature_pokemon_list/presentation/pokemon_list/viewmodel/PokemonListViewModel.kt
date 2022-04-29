@@ -1,6 +1,5 @@
 package com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_list.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.justadeveloper96.pokedex.core.api.Loading
 import com.justadeveloper96.pokedex.core.api.NetworkException
@@ -8,11 +7,13 @@ import com.justadeveloper96.pokedex.core.api.Success
 import com.justadeveloper96.pokedex.core.api.Unsuccessful
 import com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repository.IPokemonRepository
 import com.justadeveloper96.pokedex.helpers.viewmodel.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PokemonListViewModel @ViewModelInject constructor(
+@HiltViewModel
+class PokemonListViewModel @Inject constructor(
     private val coroutineDispatcher: CoroutineDispatcher,
     private val repository: IPokemonRepository
 ) :

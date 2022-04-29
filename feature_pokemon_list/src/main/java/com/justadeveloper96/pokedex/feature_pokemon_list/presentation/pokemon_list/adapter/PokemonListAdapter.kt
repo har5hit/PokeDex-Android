@@ -23,11 +23,11 @@ import com.justadeveloper96.pokedex.feature_pokemon_list.presentation.pokemon_li
 
 val diffUtil = object : DiffUtil.ItemCallback<PokemonUiModel>() {
     override fun areItemsTheSame(oldItem: PokemonUiModel, newItem: PokemonUiModel): Boolean {
-        return oldItem == newItem
+        return oldItem.url == newItem.url
     }
 
     override fun areContentsTheSame(oldItem: PokemonUiModel, newItem: PokemonUiModel): Boolean {
-        return oldItem == newItem
+        return oldItem.url == newItem.url
     }
 }
 

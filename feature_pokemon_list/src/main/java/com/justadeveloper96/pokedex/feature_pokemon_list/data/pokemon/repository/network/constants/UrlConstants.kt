@@ -18,7 +18,7 @@ package com.justadeveloper96.pokedex.feature_pokemon_list.data.pokemon.repositor
 
 object UrlConstants {
 
-    val IMAGE_HOST_URL = "https://pokeres.bastionbot.org/images/pokemon"
+    val IMAGE_HOST_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork"
 
     fun imageUrl(url: String): String {
         return try {
